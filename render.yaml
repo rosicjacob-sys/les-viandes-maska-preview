@@ -2,6 +2,7 @@ services:
   - type: "web"
     runtime: "static"
     name: "les-viandes-maska"
+    rootDir: "."
     buildCommand: "echo prebuilt"
     staticPublishPath: "."
     autoDeployTrigger: "commit"

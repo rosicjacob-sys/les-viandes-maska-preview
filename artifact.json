@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-08T06:03:31.458Z",
-  "artifactHash": "5fe3936a15fbac28d90887ec3dc931bbce76f9bb1ca83748c38298d35949e8e9",
+  "generatedAt": "2026-11-08T06:07:31.388Z",
+  "artifactHash": "c0ed04510767dab2d440c7af75587ed660f8b7ed7f66d85b256b17a3f1025c16",
   "files": 145,
-  "bytes": 19313820,
+  "bytes": 19314036,
   "renderService": "les-viandes-maska",
   "expectedUrl": "https://les-viandes-maska.onrender.com",
   "hashes": {
@@ -131,7 +131,7 @@
     "revue/shots/produits-1440.jpg": "f1453b54ba43860370e71ce304ef124b52992c86463ebb1252b8311d1f956ad2",
     "revue/shots/index-390.jpg": "efa82a9b7d1a98f32d66f2f197bcb71a8f2809206e4188136dfd86d367c82acd",
     "revue/review.css": "f2442b1da315b0dba869a7097dc2dabc91a8678e707e76cad2a2f88da1e8a23f",
-    "revue/index.html": "0be40c2fac0fed5a13054f76b3e13740ede47eda6fbd5c194ea3da9ce8311081",
+    "revue/index.html": "45ad2b6034fc37a7985ef7f7ca17add27a2346c20eaf4670697429f5ca9a4025",
     "revue/review.js": "98ba3a844837fb5e3d38dddc80d0eb660fa0aed3c9df853e360fa9f677dc3888",
     "en/about.html": "24fddb4d686e6cfe9e914cf0cd94a3a56a2da6985bd52378ae50299012f03573",
     "en/contact.html": "81d4712061a1ac54ff722576e4a8290d6eca2faaec598c916d469160943484fa",
