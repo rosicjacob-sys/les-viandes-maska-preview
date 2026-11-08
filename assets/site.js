@@ -54,8 +54,87 @@
   document.querySelector('.mobile-menu')?.addEventListener('keydown', event => { if (event.key === 'Escape') { event.currentTarget.open = false; event.currentTarget.querySelector('summary').focus(); } });
   if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('in'); observer.unobserve(entry.target); } }), { rootMargin: '0px 0px -8% 0px' });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  } else document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    document.querySelectorAll('.reveal,.x-split').forEach(el => observer.observe(el));
+  } else document.querySelectorAll('.reveal,.x-split').forEach(el => el.classList.add('in'));
+
+  // Count-up numbers ([data-count])
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const runCount = el => {
+    const to = +el.dataset.count, from = +(el.dataset.from || 0), raw = el.dataset.raw === '1';
+    const fmt = v => raw ? String(Math.round(v)) : Math.round(v).toLocaleString(lang === 'fr' ? 'fr-CA' : 'en-CA');
+    if (reduced || !Number.isFinite(to)) { el.textContent = fmt(to); return; }
+    const t0 = performance.now();
+    const step = t => { const p = Math.min(1, (t - t0) / 900), e = 1 - Math.pow(1 - p, 3); el.textContent = fmt(from + (to - from) * e); if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  };
+  if ('IntersectionObserver' in window && !reduced) {
+    const co = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { co.unobserve(en.target); runCount(en.target); } }), { threshold: 0.25 });
+    document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
+  } else document.querySelectorAll('[data-count]').forEach(runCount);
+
+  // Home 49-Frame Scroll-Scrubbed Hero Canvas (.hero-scroll)
+  document.querySelectorAll('.hero-scroll[data-frames]').forEach(hero => {
+    const cv = hero.querySelector('.hs-cv'), ctx2d = cv?.getContext('2d'), N = +hero.dataset.frames || 49, base = hero.dataset.src || 'assets/scrub-home/f-';
+    if (!cv || !ctx2d) return;
+    const imgs = Array(N), pad = n => String(n).padStart(3, '0');
+    const draw = i => {
+      const im = imgs[i]; if (!im || !im.complete || !im.naturalWidth) return;
+      ctx2d.drawImage(im, 0, 0, cv.width, cv.height);
+    };
+    const load = i => { if (imgs[i]) return; const im = new Image(); im.src = `${base}${pad(i + 1)}.webp`; im.onload = () => { if (i === 0) draw(0); }; imgs[i] = im; };
+    let warmed = false;
+    const warm = () => {
+      if (warmed || reduced) return;
+      warmed = true;
+      load(0);
+      for (let i = 1; i < N; i++) setTimeout(() => load(i), i * 16);
+      hero.querySelectorAll('[data-deferred-video]').forEach(v => {
+        if (!v.src && v.dataset.src) v.src = v.dataset.src;
+        v.onplaying = () => v.classList.add('is-playing');
+        v.play().catch(() => {});
+      });
+    };
+    addEventListener('scroll', warm, { passive: true, once: true });
+    addEventListener('pointermove', warm, { passive: true, once: true });
+    addEventListener('touchstart', warm, { passive: true, once: true });
+    const onScroll = () => {
+      warm();
+      const r = hero.getBoundingClientRect(), p = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height * 0.7)));
+      draw(Math.min(N - 1, Math.floor(p * (N - 1))));
+      hero.style.setProperty('--p', (0.2 + p * 0.8).toFixed(3));
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+  });
+
+  // Pauseable marquee (.x-pause) & hover videos ([data-hover-video])
+  document.querySelectorAll('.x-pause').forEach(btn => btn.addEventListener('click', () => {
+    const box = btn.closest('.x-moving') || document.body, paused = box.classList.toggle('is-paused');
+    btn.setAttribute('aria-pressed', String(paused));
+    const sp = btn.querySelector('span'); if (sp) sp.textContent = paused ? btn.dataset.play : btn.dataset.pause;
+  }));
+  document.querySelectorAll('.reel-it').forEach(it => {
+    const v = it.querySelector('video');
+    it.addEventListener('pointerenter', () => {
+      if (!v || reduced) return;
+      if (!v.src && v.dataset.src) v.src = v.dataset.src;
+      v.onplaying = () => v.classList.add('is-playing');
+      v.play().catch(() => {});
+    });
+    it.addEventListener('pointerleave', () => { if (v) v.pause(); });
+  });
+
+  // Live Saint-Hyacinthe cold-chain & opening status
+  const liveText = document.querySelector('[data-live-hours-text]');
+  if (liveText) {
+    try {
+      const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Toronto', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(new Date());
+      const wd = parts.find(p => p.type === 'weekday')?.value, hr = +(parts.find(p => p.type === 'hour')?.value || 0), mn = +(parts.find(p => p.type === 'minute')?.value || 0), mins = hr * 60 + mn;
+      const isOpen = (['Mon', 'Tue', 'Wed', 'Thu'].includes(wd) && mins >= 450 && mins < 1050) || (wd === 'Fri' && mins >= 450 && mins < 960);
+      liveText.textContent = lang === 'fr'
+        ? (isOpen ? 'Saint-Hyacinthe : Ouvert maintenant • Permis C1 MAPAQ' : 'Saint-Hyacinthe : Lun–Jeu 7h30–17h30, Ven 7h30–16h00 • C1 MAPAQ')
+        : (isOpen ? 'Saint-Hyacinthe: Open now • C1 MAPAQ Permit' : 'Saint-Hyacinthe: Mon–Thu 7:30–17:30, Fri 7:30–16:00 • C1 MAPAQ');
+    } catch { /* fallback text stays */ }
+  }
   requestAnimationFrame(() => document.querySelector('[data-home-hero]')?.classList.add('is-ready'));
 })();
 
@@ -67,7 +146,19 @@
     const panels = [...explorer.querySelectorAll('[data-family-panel]')];
     function activate(tab, focus = false) {
       tabs.forEach(x => { const selected = x === tab; x.setAttribute('aria-selected', String(selected)); x.tabIndex = selected ? 0 : -1; });
-      panels.forEach(panel => { panel.hidden = panel.dataset.familyPanel !== tab.dataset.family; panel.classList.toggle('active', !panel.hidden); });
+      panels.forEach(panel => {
+        const isCurrent = panel.dataset.familyPanel === tab.dataset.family;
+        panel.hidden = !isCurrent;
+        panel.classList.toggle('active', isCurrent);
+        const vid = panel.querySelector('video');
+        if (vid) {
+          if (isCurrent && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            if (!vid.src && vid.dataset.src) vid.src = vid.dataset.src;
+            vid.onplaying = () => vid.classList.add('is-playing');
+            vid.play().catch(() => {});
+          } else vid.pause();
+        }
+      });
       if (focus) tab.focus();
     }
     tabs.forEach((tab, index) => {
@@ -119,8 +210,26 @@
     dialog.querySelector('[data-dialog-name]').textContent = name; dialog.querySelector('[data-dialog-pack]').textContent = pack;
     dialog.querySelector('[data-dialog-category]').textContent = activeCard.querySelector('.product-category').textContent;
     const image = dialog.querySelector('[data-dialog-image]'); image.src = activeCard.dataset.image; image.alt = name;
+    const dvid = dialog.querySelector('[data-dialog-video]');
+    if (dvid && activeCard.dataset.video) { dvid.src = activeCard.dataset.video; dvid.poster = activeCard.dataset.poster || ''; dvid.play().catch(() => {}); }
     dialog.showModal();
   }));
+  document.querySelectorAll('[data-product-id]').forEach(card => {
+    const v = card.querySelector('[data-card-video]');
+    if (!v) return;
+    card.addEventListener('pointerenter', () => v.play().catch(() => {}));
+    card.addEventListener('pointerleave', () => { if (!card.classList.contains('video-on')) v.pause(); });
+  });
+  const toggleAllBtn = document.querySelector('[data-toggle-all-videos]');
+  toggleAllBtn?.addEventListener('click', () => {
+    const on = toggleAllBtn.getAttribute('aria-pressed') !== 'true';
+    toggleAllBtn.setAttribute('aria-pressed', String(on));
+    document.querySelectorAll('[data-product-id]').forEach(card => {
+      card.classList.toggle('video-on', on);
+      const v = card.querySelector('[data-card-video]');
+      if (v) { if (on && !card.hidden) v.play().catch(() => {}); else v.pause(); }
+    });
+  });
   dialog?.querySelector('[data-close-dialog]')?.addEventListener('click', () => dialog.close());
   dialog?.addEventListener('click', event => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close(); } });
   dialog?.querySelector('[data-dialog-add]')?.addEventListener('click', () => { if (activeCard) addProduct(activeCard); dialog.close(); });
@@ -135,9 +244,21 @@
 (() => {
   const M = window.Maska;
   document.querySelectorAll('[data-portion-calculator]').forEach(form => {
-    const weight = form.elements.weight, portion = form.elements.portion, output = form.querySelector('[data-calc-output] strong');
-    const calculate = () => { const value = Math.floor(Number(weight.value) * 1000 / Number(portion.value)); output.textContent = Number.isFinite(value) && value > 0 ? value.toLocaleString(M.lang === 'fr' ? 'fr-CA' : 'en-CA') : '0'; };
+    const weight = form.elements.weight, portion = form.elements.portion, output = form.querySelector('[data-calc-output] strong'), bar = form.querySelector('[data-calc-bar]');
+    const calculate = () => {
+      const value = Math.floor(Number(weight.value) * 1000 / Number(portion.value));
+      output.textContent = Number.isFinite(value) && value > 0 ? value.toLocaleString(M.lang === 'fr' ? 'fr-CA' : 'en-CA') : '0';
+      if (bar) bar.style.width = `${Math.max(12, Math.min(100, Math.round((value / 150) * 100)))}%`;
+    };
     form.addEventListener('input', calculate); form.addEventListener('submit', e => e.preventDefault()); calculate();
+    form.querySelectorAll('[data-calc-preset]').forEach(btn => btn.addEventListener('click', () => {
+      const [w, p] = btn.dataset.calcPreset.split(','); weight.value = w; portion.value = p; calculate();
+    }));
+    form.querySelector('[data-calc-add]')?.addEventListener('click', () => {
+      const w = Number(weight.value) || 10, p = Number(portion.value) || 170, count = Math.max(1, Math.floor(w * 1000 / p));
+      M.addItem({ key: `calc-${Date.now()}`, type: 'custom', id: 'calc', fr: `Simulation portionnage (${w} kg)`, en: `Portion simulation (${w} kg)`, packFr: `${p} g × ~${count} portions`, packEn: `${p} g × ~${count} portions`, quantity: 1 });
+      M.toast(M.ui.added);
+    });
   });
   const form = document.querySelector('[data-cut-form]');
   if (!form || !M) return;
@@ -160,6 +281,15 @@
     docket.querySelector('[data-docket-portion]').textContent = `${v.portion} g`; docket.querySelector('[data-docket-quantity]').textContent = String(v.quantity); docket.querySelector('[data-docket-package]').textContent = v.pack;
     docket.querySelector('[data-docket-weight]').textContent = `${kg} kg`; docket.querySelector('[data-docket-portions]').textContent = `${v.quantity} ${copy[M.lang]?.totalPortions || 'portions'}`;
     document.querySelector('[data-portion-output]').textContent = `${v.portion} g`;
+    const dvid = docket.querySelector('[data-docket-video]');
+    if (dvid) {
+      const clipMap = { boeuf: 'hero-products-bavette', porc: 'food-pork-cubes', poulet: 'hero-custom-chicken', veau: 'food-veal-osso-buco' };
+      const clip = clipMap[v.proteinId] || 'hero-products-bavette', pref = dvid.dataset.assetPrefix || '';
+      const nextSrc = `${pref}assets/video/${clip}.mp4`;
+      if (dvid.dataset.currentClip !== clip) { dvid.dataset.currentClip = clip; dvid.src = nextSrc; dvid.poster = `${pref}assets/video/${clip}.webp`; dvid.play().catch(() => {}); }
+    }
+    const scale = Math.max(0.6, Math.min(2.2, v.portion / 170));
+    docket.querySelectorAll('[data-slice-bar]').forEach(el => { el.style.transform = `scaleX(${scale.toFixed(2)})`; });
   }
   form.addEventListener('input', update); update();
   document.querySelector('[data-add-custom]')?.addEventListener('click', () => {
@@ -191,6 +321,14 @@
       });
     });
   });
+  document.querySelectorAll('.story').forEach(st => {
+    const steps = [...st.querySelectorAll('.st-step')], cards = [...st.querySelectorAll('.st-card')];
+    const setStep = idx => {
+      steps.forEach((s, i) => s.classList.toggle('is-on', i === idx));
+      cards.forEach((c, i) => c.classList.toggle('is-on', i === idx));
+    };
+    steps.forEach((s, i) => s.addEventListener('click', () => setStep(i)));
+  });
 })();
 
 (() => {
@@ -206,6 +344,31 @@
     };
     route.addEventListener('input', update); update();
   }
+  document.querySelectorAll('.territory').forEach(sec => {
+    const pathEl = sec.querySelector('.tr-route'), truck = sec.querySelector('.tr-truck');
+    if (!pathEl || !pathEl.getTotalLength) return;
+    const len = pathEl.getTotalLength();
+    const move = p => {
+      if (!truck || !pathEl.getPointAtLength) return;
+      const pt = pathEl.getPointAtLength(p * len);
+      truck.setAttribute('transform', `translate(${pt.x.toFixed(1)},${pt.y.toFixed(1)})`);
+    };
+    move(0.35);
+    addEventListener('scroll', () => {
+      const r = sec.getBoundingClientRect(), p = Math.max(0.08, Math.min(0.96, (innerHeight - r.top) / Math.max(1, innerHeight + r.height)));
+      move(p);
+    }, { passive: true });
+  });
+  document.querySelectorAll('[data-career-pick]').forEach(card => card.addEventListener('click', () => {
+    document.querySelectorAll('[data-career-pick]').forEach(c => c.classList.toggle('active', c === card));
+    const sel = document.querySelector('[data-career-form] [name="interest"]');
+    if (sel) { sel.value = card.dataset.careerPick; sel.dispatchEvent(new Event('input', { bubbles: true })); }
+  }));
+  document.querySelectorAll('[data-topic-pill]').forEach(pill => pill.addEventListener('click', () => {
+    document.querySelectorAll('[data-topic-pill]').forEach(p => { const on = p === pill; p.classList.toggle('active', on); p.setAttribute('aria-pressed', String(on)); });
+    const sel = document.querySelector('[data-contact-form] [name="topic"]');
+    if (sel) { sel.value = pill.dataset.topicPill; sel.dispatchEvent(new Event('input', { bubbles: true })); }
+  }));
   function draft(form, key) {
     const state = M.read(), saved = state.drafts[key] || {};
     Object.entries(saved).forEach(([name, value]) => { if (form.elements[name] && typeof value === 'string') form.elements[name].value = value; });
