@@ -220,6 +220,18 @@
     card.addEventListener('pointerenter', () => v.play().catch(() => {}));
     card.addEventListener('pointerleave', () => { if (!card.classList.contains('video-on')) v.pause(); });
   });
+  // On touch devices (iPhone & Android), auto-play visible product card videos as the user scrolls
+  if ('IntersectionObserver' in window && matchMedia('(hover: none), (pointer: coarse), (max-width: 760px)').matches) {
+    const cardObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const v = entry.target.querySelector('[data-card-video]');
+        if (!v) return;
+        if (entry.isIntersecting) v.play().catch(() => {});
+        else if (!entry.target.classList.contains('video-on')) v.pause();
+      });
+    }, { threshold: 0.35 });
+    document.querySelectorAll('[data-product-id]').forEach(card => cardObserver.observe(card));
+  }
   const toggleAllBtn = document.querySelector('[data-toggle-all-videos]');
   toggleAllBtn?.addEventListener('click', () => {
     const on = toggleAllBtn.getAttribute('aria-pressed') !== 'true';

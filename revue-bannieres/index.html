@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Les Viandes Maska | 6 Conceptions de Bannière d'Accueil (Hero Lab)</title>
+  <link rel="icon" type="image/png" href="../assets/brand/favicon.png">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="review.css">
+  <style>
+body{background:#05080d;color:#f8fafc;margin:0;font-family:var(--body)}
+.lab-topbar{position:sticky;top:0;z-index:100;background:rgba(7,10,15,.94);border-bottom:1px solid #1e293b;backdrop-filter:blur(12px);padding:12px 24px}
+.lab-topbar-inner{max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.lab-back{color:#38bdf8;font-size:13px;font-weight:700}
+.lab-title b{font:600 22px/1 var(--display);letter-spacing:.06em;color:#fff;margin-right:12px}
+.lab-title span{font-size:12px;color:#94a3b8}
+.lab-jumps{display:flex;gap:8px;flex-wrap:wrap}
+.lab-jumps a{padding:7px 12px;border:1px solid #1e293b;border-radius:3px;background:#0f1520;color:#e2e8f0;font-size:12px;font-weight:600;transition:.2s}
+.lab-jumps a:hover{border-color:#38bdf8;color:#38bdf8}
+.lab-main{max-width:1600px;margin:0 auto;padding:24px clamp(12px,2.5vw,36px) 120px}
+.banner-card{background:#0b1018;border:1px solid #1e293b;border-radius:8px;margin-bottom:56px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.banner-meta{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:18px 28px;background:#0f1623;border-bottom:1px solid #1e293b}
+.banner-meta .id{color:#38bdf8;font:700 12px/1.2 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}
+.banner-meta h2{font-size:28px;color:#fff;margin:4px 0 0}
+.banner-meta p{font-size:13px;color:#94a3b8;max-width:68ch;margin:0}
+
+.b1-hero{position:relative;min-height:660px;display:grid;align-items:end;background:#070a0f;overflow:hidden}
+.b1-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:65% center;filter:brightness(.88) contrast(1.06)}
+.b1-scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,10,15,.94) 0%,rgba(7,10,15,.76) 44%,rgba(7,10,15,.18) 100%),linear-gradient(0deg,rgba(7,10,15,.92) 0%,transparent 45%)}
+.b1-inner{position:relative;z-index:2;width:100%;padding:clamp(36px,5vw,72px);display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:end}
+.b1-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 14px;background:rgba(13,92,171,.28);border:1px solid #38bdf8;color:#38bdf8;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;border-radius:3px;margin-bottom:20px}
+.b1-copy h3{font:600 clamp(54px,6vw,96px)/.88 var(--display);color:#fff}
+.b1-copy h3 em{font-style:normal;color:#38bdf8;display:block;margin-top:8px}
+.b1-copy p{color:#cbd5e1;font-size:18px;margin:22px 0 30px;max-width:48ch}
+.b1-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;background:rgba(15,21,32,.84);border:1px solid #1e293b;backdrop-filter:blur(12px);padding:22px;border-radius:4px}
+.b1-stats div strong{display:block;font:600 42px/1 var(--display);color:#38bdf8}
+.b1-stats div span{font-size:11px;color:#cbd5e1;letter-spacing:.06em;text-transform:uppercase}
+
+.b2-stage{background:#fff;color:#090d14;display:grid;grid-template-columns:.92fr 1.08fr;min-height:640px}
+.b2-left{padding:clamp(32px,4.5vw,64px);display:flex;flex-direction:column;justify-content:center;border-right:1px solid #e2e8f0}
+.b2-left .eyebrow{color:#0d5cab;margin-bottom:14px}
+.b2-left h3{font:600 clamp(52px,5.4vw,86px)/.88 var(--display);color:#090d14}
+.b2-left h3 span{color:#0d5cab;display:block;margin-top:8px}
+.b2-left p{color:#475569;font-size:17px;margin:20px 0 26px}
+.b2-pills{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:28px}
+.b2-pill{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid #cbd5e1;background:#f8fafc;color:#090d14;border-radius:4px;font-size:12px;font-weight:700;text-align:left;transition:.2s}
+.b2-pill small{color:#0d5cab;font-weight:700}
+.b2-pill.active,.b2-pill:hover{background:#090d14;color:#fff;border-color:#090d14}
+.b2-pill.active small,.b2-pill:hover small{color:#38bdf8}
+.b2-right{position:relative;background:#1e242b;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;min-height:440px}
+.b2-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.b2-hud-top,.b2-hud-bottom{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:20px 26px}
+.b2-hud-top span{background:rgba(7,10,15,.84);color:#38bdf8;padding:6px 12px;border:1px solid #1e293b;font:700 11px/1 ui-monospace,monospace;letter-spacing:.12em}
+.b2-hud-bottom{background:linear-gradient(transparent,rgba(7,10,15,.92));color:#fff;padding-top:44px}
+.b2-hud-bottom b{font:600 32px/1 var(--display);display:block}
+.b2-hud-bottom small{color:#94a3b8;font-size:12px}
+
+.b3-hero{background:#070a0f;color:#fff;padding:clamp(32px,4.5vw,64px);display:grid;grid-template-columns:.88fr 1.12fr;gap:40px;align-items:center;min-height:640px}
+.b3-copy .eyebrow{color:#38bdf8}
+.b3-copy h3{font:600 clamp(52px,5.5vw,88px)/.88 var(--display);color:#fff}
+.b3-copy h3 em{font-style:normal;color:#38bdf8;display:block;margin-top:8px}
+.b3-copy p{color:#94a3b8;font-size:17px;margin:22px 0 30px}
+.b3-matrix{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.b3-cell{position:relative;aspect-ratio:16/10;background:#1e242b;border:1px solid #1e293b;border-radius:5px;overflow:hidden}
+.b3-cell video{width:100%;height:100%;object-fit:cover}
+.b3-cell figcaption{position:absolute;inset:auto 0 0 0;padding:18px 14px 10px;background:linear-gradient(transparent,rgba(7,10,15,.92));display:flex;justify-content:space-between;align-items:flex-end;font-size:12px;font-weight:700;color:#fff}
+.b3-cell figcaption span{color:#38bdf8;font-size:10px;letter-spacing:.12em}
+
+.b4-hero{background:#f6f8fb;color:#090d14;padding:clamp(32px,4.5vw,64px)}
+.b4-top{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:end;padding-bottom:32px;border-bottom:2px solid #090d14}
+.b4-top h3{font:600 clamp(56px,6.2vw,98px)/.86 var(--display);color:#090d14}
+.b4-top h3 span{color:#0d5cab}
+.b4-body{display:grid;grid-template-columns:1.35fr .65fr;gap:28px;padding-top:28px;align-items:stretch}
+.b4-cinema{position:relative;min-height:420px;background:#1e242b;border-radius:4px;overflow:hidden;border:1px solid #cbd5e1}
+.b4-cinema video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.b4-cinema-tag{position:absolute;left:18px;bottom:18px;background:rgba(7,10,15,.88);color:#fff;padding:12px 18px;border-left:3px solid #38bdf8;font-size:13px;font-weight:600}
+.b4-ledger{background:#070a0f;color:#fff;padding:28px;border-radius:4px;display:flex;flex-direction:column;justify-content:space-between}
+.b4-ledger h4{font:600 30px/1 var(--display);color:#38bdf8;margin:0 0 18px}
+.b4-ledger ol{display:grid;gap:16px}
+.b4-ledger li{display:grid;grid-template-columns:34px 1fr;gap:12px;padding-bottom:14px;border-bottom:1px solid #1e293b}
+.b4-ledger li span{color:#38bdf8;font:700 18px/1 var(--display)}
+.b4-ledger li b{display:block;font-size:14px;color:#fff}
+.b4-ledger li small{font-size:12px;color:#94a3b8}
+
+.b5-hero{background:#090d14;color:#fff;padding:clamp(32px,4.5vw,64px);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;min-height:620px}
+.b5-sectors{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
+.b5-sec-btn{padding:10px 16px;border:1px solid #1e293b;background:#0f172a;color:#cbd5e1;font-size:12px;font-weight:700;border-radius:99px;transition:.2s}
+.b5-sec-btn.active,.b5-sec-btn:hover{background:#0d5cab;border-color:#38bdf8;color:#fff}
+.b5-card{position:relative;aspect-ratio:16/10;background:#1e242b;border:1px solid #1e293b;border-radius:6px;overflow:hidden}
+.b5-card video{width:100%;height:100%;object-fit:cover}
+.b5-card-info{position:absolute;inset:auto 0 0 0;padding:22px;background:linear-gradient(transparent,rgba(7,10,15,.95))}
+.b5-card-info span{color:#38bdf8;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.b5-card-info p{color:#fff;font-size:15px;font-weight:600;margin-top:6px}
+
+.b6-hero{background:#fff;color:#090d14;padding:clamp(28px,4vw,56px)}
+.b6-header{text-align:center;max-width:900px;margin:0 auto 28px}
+.b6-header .eyebrow{color:#0d5cab;margin-bottom:10px}
+.b6-header h3{font:600 clamp(52px,6vw,92px)/.88 var(--display);color:#090d14}
+.b6-header h3 span{color:#0d5cab}
+.b6-panoramic{position:relative;height:440px;background:#1e242b;border-radius:6px;overflow:hidden;display:grid;grid-template-columns:1.3fr .7fr;gap:4px}
+.b6-panoramic video{width:100%;height:100%;object-fit:cover}
+.b6-bar{position:relative;z-index:2;max-width:1120px;margin:-42px auto 0;background:#070a0f;color:#fff;border:1px solid #1e293b;border-radius:6px;padding:22px 28px;display:grid;grid-template-columns:repeat(3,1fr) auto;gap:20px;align-items:center;box-shadow:0 20px 50px rgba(7,10,15,.35)}
+.b6-bar div strong{display:block;color:#38bdf8;font:600 24px/1 var(--display)}
+.b6-bar div span{font-size:12px;color:#cbd5e1}
+
+@media(max-width:960px){
+  .b1-inner,.b2-stage,.b3-hero,.b4-top,.b4-body,.b5-hero,.b6-panoramic,.b6-bar{grid-template-columns:1fr}
+  .b1-hero{min-height:580px}
+  .b2-right{min-height:340px}
+  .b6-panoramic{height:360px;grid-template-columns:1fr}
+  .b6-panoramic video:nth-child(2){display:none}
+  .b6-bar{margin-top:16px}
+}
+@media(max-width:560px){
+  .b3-matrix,.b1-stats,.b2-pills{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body data-review="maska-hero-banners-01" data-title="Les Viandes Maska - 6 Hero Banner Concepts">
+  <header class="lab-topbar">
+    <div class="lab-topbar-inner">
+      <a class="lab-back" href="../index.html">← Retour au site / Back to site</a>
+      <div class="lab-title"><b>MASKA HERO LAB</b><span>6 Bannières d'Accueil Animées (Desktop + Mobile iPhone/Android)</span></div>
+      <nav class="lab-jumps" aria-label="Bannières">
+        <a href="#banner-1">01 · Cinéma 360°</a>
+        <a href="#banner-2">02 · Comptoir Interactif</a>
+        <a href="#banner-3">03 · Galerie Quad-Video</a>
+        <a href="#banner-4">04 · Architectural Blanc & Bleu</a>
+        <a href="#banner-5">05 · Sélecteur par Secteur</a>
+        <a href="#banner-6">06 · Scène Panoramique</a>
+      </nav>
+    </div>
+  </header>
+  <main class="lab-main">
+    
+<article class="banner-card item" id="banner-1" data-id="BANNER-01" data-title="01 · Scène Cinéma 360° Plein Écran (Full-Bleed Dark Cinema 360°)">
+  <div class="banner-meta">
+    <div><span class="id">OPTION 01 · FULL-BLEED DARK CINEMA 360° STAGE</span><h2>01 · Scène Cinéma 360° Plein Écran (Carbone & Bleu Maska)</h2></div>
+    <p>Vidéo 3D plein écran en lecture immédiate (Bifteck de côte AA #265 en rotation 360° sur ardoise grise), typographie monumentale blanche & bleue et comptoir de preuves C1 MAPAQ intégré.</p>
+  </div>
+  <section class="b1-hero">
+    <video class="b1-bg-video" autoplay muted loop playsinline poster="../assets/products/265.webp" src="../assets/video/turn-steak-360.mp4"></video>
+    <div class="b1-scrim"></div>
+    <div class="b1-inner">
+      <div class="b1-copy">
+        <span class="b1-badge">PERMIS C1 MAPAQ · SAINT-HYACINTHE · DEPUIS 2001</span>
+        <h3>La coupe juste.<em>Le service suivi.</em></h3>
+        <p>Grossiste alimentaire, salle de coupe sur mesure et flotte réfrigérée pour les cuisines professionnelles, boucheries et institutions en Montérégie, en Estrie et au Centre-du-Québec.</p>
+        <div class="button-row"><a class="btn primary" href="../produits.html">Explorer les 14 familles & 45 coupes →</a><a class="btn outline-light" href="../sur-mesure.html">Composer une coupe sur mesure →</a></div>
+      </div>
+      <div class="b1-stats">
+        <div><strong>14</strong><span>Familles au catalogue 2026</span></div>
+        <div><strong>C1</strong><span>Salle de coupe MAPAQ</span></div>
+        <div><strong>3</strong><span>Régions livrées au froid</span></div>
+      </div>
+    </div>
+  </section>
+</article>
+
+<article class="banner-card item" id="banner-2" data-id="BANNER-02" data-title="02 · Comptoir du Boucher Interactif (Live Cut Switcher)">
+  <div class="banner-meta">
+    <div><span class="id">OPTION 02 · INTERACTIVE BUTCHER'S COUNTER CUT SWITCHER</span><h2>02 · Comptoir du Boucher Interactif (Sélecteur de Coupes Animées en Direct)</h2></div>
+    <p>Côté gauche blanc chirurgical avec 4 boutons de coupes interactifs (Bifteck AA, Bavette Marinée, Lanières de Poulet, Filet de Saumon) qui changent la vidéo 3D en rotation en direct côté droit.</p>
+  </div>
+  <section class="b2-stage">
+    <div class="b2-left">
+      <p class="eyebrow">GROSSISTE ALIMENTAIRE · SALLE DE COUPE · DISTRIBUTION</p>
+      <h3>Choisissez votre coupe.<span>Voyez la qualité Maska.</span></h3>
+      <p>Cliquez sur une coupe ci-dessous pour inspecter nos pièces portionnées et préparées à Saint-Hyacinthe :</p>
+      <div class="b2-pills">
+        <button type="button" class="b2-pill active" data-b2-cut data-video="../assets/video/turn-rib-steak-265.mp4" data-poster="../assets/products/265.webp" data-title="Bifteck de côte AA (#265)" data-sub="Bœuf canadien · Portionné sur mesure" data-code="MASKA / #265 · BŒUF AA"><span>01 · Bifteck de côte AA</span><small>▶ 3D</small></button>
+        <button type="button" class="b2-pill" data-b2-cut data-video="../assets/video/turn-bavette-461.mp4" data-poster="../assets/products/461.webp" data-title="Bavette de bœuf marinée (#461)" data-sub="Marinade maison · Prête au gril" data-code="MASKA / #461 · BAVETTE"><span>02 · Bavette marinée</span><small>▶ 3D</small></button>
+        <button type="button" class="b2-pill" data-b2-cut data-video="../assets/video/turn-chicken-514.mp4" data-poster="../assets/products/514.webp" data-title="Lanières de poitrine de poulet (#514)" data-sub="Volaille fraîche · Salle de coupe C1" data-code="MASKA / #514 · VOLAILLE"><span>03 · Poitrine de poulet</span><small>▶ 3D</small></button>
+        <button type="button" class="b2-pill" data-b2-cut data-video="../assets/video/turn-salmon-306.mp4" data-poster="../assets/products/306.webp" data-title="Filet de saumon Atlantique (#306)" data-sub="Poissons & fruits de mer · Portionné" data-code="MASKA / #306 · SAUMON"><span>04 · Filet de saumon</span><small>▶ 3D</small></button>
+      </div>
+      <div class="button-row"><a class="btn primary" href="../produits.html">Parcourir tout le catalogue →</a><a class="btn dark" href="../sur-mesure.html">Demander une coupe →</a></div>
+    </div>
+    <div class="b2-right">
+      <video class="b2-video" autoplay muted loop playsinline poster="../assets/products/265.webp" src="../assets/video/turn-rib-steak-265.mp4"></video>
+      <div class="b2-hud-top"><span data-b2-code>MASKA / #265 · BŒUF AA</span><span>ROTATION STUDIO 3D · SANS ZOOM</span></div>
+      <div class="b2-hud-bottom"><div><b data-b2-title>Bifteck de côte AA (#265)</b><small data-b2-sub>Bœuf canadien · Portionné sur mesure</small></div><a class="btn primary" href="../produits.html">Voir la fiche →</a></div>
+    </div>
+  </section>
+</article>
+
+<article class="banner-card item" id="banner-3" data-id="BANNER-03" data-title="03 · Matrice Quad-Vidéo Synchronisée (4 Coupes en Rotation Simultanée)">
+  <div class="banner-meta">
+    <div><span class="id">OPTION 03 · 4-PANEL SYNCHRONIZED 3D MOTION MATRIX</span><h2>03 · Matrice Quad-Vidéo Synchronisée (4 Coupes en Rotation Simultanée)</h2></div>
+    <p>Montre immédiatement l'étendue des gammes Maska (Bœuf, Porc, Volaille, Poissons) avec 4 vidéos 3D tournantes synchronisées sur fond gris unifié (#232830).</p>
+  </div>
+  <section class="b3-hero">
+    <div class="b3-copy">
+      <p class="eyebrow">14 FAMILLES DE GROS · 45 COUPES EN BOUTIQUE</p>
+      <h3>Toute votre table.<em>Un seul partenaire.</em></h3>
+      <p>Du bœuf AA aux côtes de porc, de la volaille portionnée aux filets de saumon : chaque coupe est préparée avec rigueur et livrée en camion réfrigéré.</p>
+      <div class="button-row"><a class="btn primary" href="../produits.html">Explorer les produits →</a><a class="btn outline-light" href="tel:+14507964183">Appeler : 450-796-4183 →</a></div>
+    </div>
+    <div class="b3-matrix">
+      <figure class="b3-cell"><video autoplay muted loop playsinline poster="../assets/products/265.webp" src="../assets/video/turn-rib-steak-265.mp4"></video><figcaption><b>Bifteck de côte AA</b><span>01 · BŒUF</span></figcaption></figure>
+      <figure class="b3-cell"><video autoplay muted loop playsinline poster="../assets/products/500.webp" src="../assets/video/turn-pork-ribs-500.mp4"></video><figcaption><b>Côtes levées de dos</b><span>02 · PORC</span></figcaption></figure>
+      <figure class="b3-cell"><video autoplay muted loop playsinline poster="../assets/products/517.webp" src="../assets/video/turn-bbq-chicken-517.mp4"></video><figcaption><b>Poitrines BBQ Montréal</b><span>03 · VOLAILLE</span></figcaption></figure>
+      <figure class="b3-cell"><video autoplay muted loop playsinline poster="../assets/products/306.webp" src="../assets/video/turn-salmon-306.mp4"></video><figcaption><b>Filets de saumon</b><span>04 · POISSONS</span></figcaption></figure>
+    </div>
+  </section>
+</article>
+
+<article class="banner-card item" id="banner-4" data-id="BANNER-04" data-title="04 · Cadre Architectural Blanc, Carbone & Bleu Maska">
+  <div class="banner-meta">
+    <div><span class="id">OPTION 04 · ARCHITECTURAL WHITE & MASKA SHIELD BLUE EDITORIAL FRAME</span><h2>04 · Cadre Architectural Blanc, Carbone & Bleu Maska</h2></div>
+    <p>Mise en page éditoriale ultra-propre sur fond blanc glacé (#F6F8FB) avec grand écran vidéo 16:9 en rotation et carnet de commande carbone à droite.</p>
+  </div>
+  <section class="b4-hero">
+    <div class="b4-top">
+      <div><p class="eyebrow">ALIMENTATION SERGE MARCIL INC. · SAINT-HYACINTHE</p><h3>L'exigence d'une salle de coupe <span>certifiée C1.</span></h3></div>
+      <div><p style="color:#475569;font-size:17px;margin-bottom:20px">Des portions régulières, un emballage sous vide adapté à votre cadence et une flotte réfrigérée dédiée.</p><div class="button-row"><a class="btn primary" href="../produits.html">Catalogue 2026 →</a><a class="btn dark" href="../sur-mesure.html">Salle de coupe →</a></div></div>
+    </div>
+    <div class="b4-body">
+      <div class="b4-cinema"><video autoplay muted loop playsinline poster="../assets/products/470.webp" src="../assets/video/turn-sausages-470.mp4"></video><div class="b4-cinema-tag">EN DIRECT · Saucisses 100 % bœuf & coupes fraîches en rotation 3D</div></div>
+      <div class="b4-ledger">
+        <div>
+          <h4>Parcours de commande en 3 étapes</h4>
+          <ol>
+            <li><span>01</span><div><b>Sélection ou coupe sur mesure</b><small>14 familles au catalogue ou grammage précis (50 g à 500 g).</small></div></li>
+            <li><span>02</span><div><b>Validation par votre conseiller</b><small>Confirmation des formats, du conditionnement et de l'horaire.</small></div></li>
+            <li><span>03</span><div><b>Livraison réfrigérée ou cueillette</b><small>Montérégie, Estrie, Centre-du-Québec ou entrepôt Bérard.</small></div></li>
+          </ol>
+        </div>
+        <a class="btn primary" href="../demande.html" style="width:100%">Préparer ma demande →</a>
+      </div>
+    </div>
+  </section>
+</article>
+
+<article class="banner-card item" id="banner-5" data-id="BANNER-05" data-title="05 · Sélecteur par Secteur Client (Restaurants, Boucheries, Institutions)">
+  <div class="banner-meta">
+    <div><span class="id">OPTION 05 · B2B SECTOR-FIRST INTERACTIVE BANNER</span><h2>05 · Sélecteur par Secteur Client (Restaurants, Boucheries, Institutions)</h2></div>
+    <p>Permet à l'acheteur de cliquer sur son secteur (Restaurants, Boucheries & Supermarchés, Hôpitaux & Écoles, Traiteurs) et d'afficher la vidéo 3D et le parcours adaptés.</p>
+  </div>
+  <section class="b5-hero">
+    <div>
+      <p class="eyebrow" style="color:#38bdf8">APPROVISIONNEMENT SUR MESURE PAR SECTEUR</p>
+      <h3 style="font:600 clamp(50px,5.4vw,86px)/.88 var(--display);color:#fff">Votre cuisine a ses propres <span style="color:#38bdf8">exigences.</span></h3>
+      <div class="b5-sectors">
+        <button type="button" class="b5-sec-btn active" data-b5-sector data-video="../assets/video/turn-bavette-461.mp4" data-poster="../assets/products/461.webp" data-badge="RESTAURANTS & GRILLADERIES" data-desc="Bavettes marinées, biftecks AA et portions calibrées au gramme près pour un coût-portion maîtrisé.">Restaurants & Grilladeries</button>
+        <button type="button" class="b5-sec-btn" data-b5-sector data-video="../assets/video/turn-pork-roast-511.mp4" data-poster="../assets/products/511.webp" data-badge="BOUCHERIES & SUPERMARCHÉS" data-desc="Longes de porc, pièces primaires, charcuteries et sacs sous vide pour vos comptoirs.">Boucheries & Supermarchés</button>
+        <button type="button" class="b5-sec-btn" data-b5-sector data-video="../assets/video/turn-chicken-cubes-472.mp4" data-poster="../assets/products/472.webp" data-badge="HÔPITAUX, ÉCOLES & RÉSIDENCES" data-desc="Cubes de volaille et de porc sans gras, viandes hachées et volumes réguliers sous permis C1 MAPAQ.">Hôpitaux, Écoles & Résidences</button>
+        <button type="button" class="b5-sec-btn" data-b5-sector data-video="../assets/video/turn-pork-ribs-500.mp4" data-poster="../assets/products/500.webp" data-badge="TRAITEURS & CABANES À SUCRE" data-desc="Côtes levées, grillades Valleyfield, jambons et produits prêts à cuire en camion réfrigéré.">Traiteurs & Cabanes à sucre</button>
+      </div>
+      <div class="button-row" style="margin-top:28px"><a class="btn primary" href="../produits.html">Voir les coupes recommandées →</a><a class="btn outline-light" href="../contact.html">Parler à un conseiller →</a></div>
+    </div>
+    <div class="b5-card">
+      <video class="b5-video" autoplay muted loop playsinline poster="../assets/products/461.webp" src="../assets/video/turn-bavette-461.mp4"></video>
+      <div class="b5-card-info"><span data-b5-badge>RESTAURANTS & GRILLADERIES</span><p data-b5-desc>Bavettes marinées, biftecks AA et portions calibrées au gramme près pour un coût-portion maîtrisé.</p></div>
+    </div>
+  </section>
+</article>
+
+<article class="banner-card item" id="banner-6" data-id="BANNER-06" data-title="06 · Double Scène Panoramique + Barre de Commande Flottante">
+  <div class="banner-meta">
+    <div><span class="id">OPTION 06 · PANORAMIC DUAL-VIDEO STAGE + FLOATING COMMAND BAR</span><h2>06 · Double Scène Panoramique + Barre de Commande Flottante</h2></div>
+    <p>En-tête centré monumental sur fond blanc pur, double scène vidéo panoramique (Bifteck de côte AA 360° + Rôti de longe de porc en rotation) et barre d'action carbone flottante.</p>
+  </div>
+  <section class="b6-hero">
+    <div class="b6-header"><p class="eyebrow">LES VIANDES MASKA · SAINT-HYACINTHE</p><h3>La coupe juste. <span>Le service suivi.</span></h3></div>
+    <div class="b6-panoramic">
+      <video autoplay muted loop playsinline poster="../assets/products/265.webp" src="../assets/video/turn-steak-360.mp4"></video>
+      <video autoplay muted loop playsinline poster="../assets/products/511.webp" src="../assets/video/turn-pork-roast-511.mp4"></video>
+    </div>
+    <div class="b6-bar">
+      <div><strong>45 Coupes & 14 Familles</strong><span>Catalogue officiel printemps 2026</span></div>
+      <div><strong>Coupe sur Mesure C1</strong><span>Portionnage de 50 g à 500 g sous vide</span></div>
+      <div><strong>Flotte Réfrigérée</strong><span>Montérégie · Estrie · Centre-du-Québec</span></div>
+      <a class="btn primary" href="../produits.html">Explorer le catalogue →</a>
+    </div>
+  </section>
+</article>
+
+  </main>
+  <script src="review.js"></script>
+  <script>
+    // Interactive switcher for Banner 02 (Cut Switcher) and Banner 05 (Sector Switcher)
+    document.querySelectorAll('[data-b2-cut]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const box = btn.closest('.b2-stage');
+        box.querySelectorAll('[data-b2-cut]').forEach(b => b.classList.toggle('active', b === btn));
+        const v = box.querySelector('.b2-video');
+        if (v) { v.src = btn.dataset.video; v.poster = btn.dataset.poster; v.play().catch(() => {}); }
+        const title = box.querySelector('[data-b2-title]'), sub = box.querySelector('[data-b2-sub]'), code = box.querySelector('[data-b2-code]');
+        if (title) title.textContent = btn.dataset.title;
+        if (sub) sub.textContent = btn.dataset.sub;
+        if (code) code.textContent = btn.dataset.code;
+      });
+    });
+    document.querySelectorAll('[data-b5-sector]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const box = btn.closest('.b5-hero');
+        box.querySelectorAll('[data-b5-sector]').forEach(b => b.classList.toggle('active', b === btn));
+        const v = box.querySelector('.b5-video');
+        if (v) { v.src = btn.dataset.video; v.poster = btn.dataset.poster; v.play().catch(() => {}); }
+        const badge = box.querySelector('[data-b5-badge]'), desc = box.querySelector('[data-b5-desc]');
+        if (badge) badge.textContent = btn.dataset.badge;
+        if (desc) desc.textContent = btn.dataset.desc;
+      });
+    });
+  </script>
+</body>
+</html>
