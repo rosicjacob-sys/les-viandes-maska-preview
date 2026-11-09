@@ -135,6 +135,13 @@
         : (isOpen ? 'Saint-Hyacinthe: Open now • C1 MAPAQ Permit' : 'Saint-Hyacinthe: Mon–Thu 7:30–17:30, Fri 7:30–16:00 • C1 MAPAQ');
     } catch { /* fallback text stays */ }
   }
+  document.querySelectorAll('[data-cinema-cut]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-cinema-cut]').forEach(b => b.classList.toggle('active', b === btn));
+      const v = document.querySelector('[data-hero-cinema-video]');
+      if (v) { v.src = btn.dataset.video; v.poster = btn.dataset.poster || ''; v.play().catch(() => {}); }
+    });
+  });
   requestAnimationFrame(() => document.querySelector('[data-home-hero]')?.classList.add('is-ready'));
 })();
 
