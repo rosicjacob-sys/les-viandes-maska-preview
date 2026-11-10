@@ -135,13 +135,31 @@
         : (isOpen ? 'Saint-Hyacinthe: Open now • C1 MAPAQ Permit' : 'Saint-Hyacinthe: Mon–Thu 7:30–17:30, Fri 7:30–16:00 • C1 MAPAQ');
     } catch { /* fallback text stays */ }
   }
-  document.querySelectorAll('[data-cinema-cut]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-cinema-cut]').forEach(b => b.classList.toggle('active', b === btn));
-      const v = document.querySelector('[data-hero-cinema-video]');
-      if (v) { v.src = btn.dataset.video; v.poster = btn.dataset.poster || ''; v.play().catch(() => {}); }
-    });
-  });
+  // Home cinema hero: the poster image paints first (LCP); the 360° clip is fetched only after window load,
+  // then turns on its own. Reduced motion and Save-Data keep the still poster until the visitor presses Play.
+  // The toggle is the WCAG 2.2.2 pause control for the endless loop.
+  const cinema = document.querySelector('[data-hero-cinema-video]'), heroToggle = document.querySelector('[data-hero-toggle]');
+  if (cinema) {
+    let wanted = false;
+    const sync = () => {
+      if (!heroToggle) return;
+      const on = wanted && !cinema.paused, d = heroToggle.dataset;
+      heroToggle.querySelector('span').textContent = on ? d.pauseText : d.playText;
+      heroToggle.setAttribute('aria-label', on ? d.pauseLabel : d.playLabel);
+      heroToggle.classList.toggle('is-playing', on);
+    };
+    const start = () => { wanted = true; cinema.preload = 'auto'; cinema.play().catch(() => { wanted = false; sync(); }); };
+    cinema.addEventListener('playing', () => { cinema.classList.add('is-playing'); sync(); });
+    cinema.addEventListener('pause', sync);
+    if (heroToggle) {
+      heroToggle.hidden = false;
+      heroToggle.addEventListener('click', () => { if (wanted && !cinema.paused) { wanted = false; cinema.pause(); sync(); } else start(); });
+    }
+    if (!reduced && !(navigator.connection && navigator.connection.saveData)) {
+      const afterLoad = () => ('requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 1000 }) : setTimeout(start, 150));
+      if (document.readyState === 'complete') afterLoad(); else addEventListener('load', afterLoad, { once: true });
+    }
+  }
   requestAnimationFrame(() => document.querySelector('[data-home-hero]')?.classList.add('is-ready'));
 })();
 
