@@ -59,6 +59,8 @@
 
   // Count-up numbers ([data-count])
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const saveData = !!(navigator.connection && navigator.connection.saveData);
+  window.Maska.motionOk = !reduced && !saveData; // shared with catalogue.js and custom.js
   const runCount = el => {
     const to = +el.dataset.count, from = +(el.dataset.from || 0), raw = el.dataset.raw === '1';
     const fmt = v => raw ? String(Math.round(v)) : Math.round(v).toLocaleString(lang === 'fr' ? 'fr-CA' : 'en-CA');
@@ -155,10 +157,52 @@
       heroToggle.hidden = false;
       heroToggle.addEventListener('click', () => { if (wanted && !cinema.paused) { wanted = false; cinema.pause(); sync(); } else start(); });
     }
-    if (!reduced && !(navigator.connection && navigator.connection.saveData)) {
+    if (!reduced && !saveData) {
       const afterLoad = () => ('requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 1000 }) : setTimeout(start, 150));
       if (document.readyState === 'complete') afterLoad(); else addEventListener('load', afterLoad, { once: true });
     }
+  }
+  // Inline clips: [data-inview-video] inside a [data-video-group] with one [data-video-toggle].
+  // No clip bytes before window load; a clip plays only while in view and actually shown (story cards stack by
+  // opacity); offscreen clips pause; reduced motion or Save-Data keep the still poster until the visitor presses
+  // play. The toggle is the WCAG 2.2.2 pause control. Scripts that swap a clip's source ask the group
+  // (data-clip-play="1") before calling play().
+  const clipGroups = [...document.querySelectorAll('[data-video-group]')].map(el => ({ el, clips: [...el.querySelectorAll('[data-inview-video]')], toggle: el.querySelector('[data-video-toggle]'), wanted: !reduced && !saveData }));
+  if (clipGroups.length) {
+    let clipsReady = document.readyState === 'complete';
+    const inView = new Set();
+    const shown = v => { for (let n = v; n && n !== document.body; n = n.parentElement) if (getComputedStyle(n).opacity === '0') return false; return true; };
+    const syncClipToggle = g => {
+      g.el.dataset.clipPlay = g.wanted && clipsReady ? '1' : '0';
+      if (!g.toggle) return;
+      const d = g.toggle.dataset;
+      g.toggle.querySelector('span').textContent = g.wanted ? d.pauseText : d.playText;
+      g.toggle.setAttribute('aria-label', g.wanted ? d.pauseLabel : d.playLabel);
+      g.toggle.classList.toggle('is-playing', g.wanted);
+    };
+    const updateGroup = g => g.clips.forEach(v => {
+      if (g.wanted && clipsReady && inView.has(v) && shown(v)) {
+        if (v.dataset.pendingSrc) { v.src = v.dataset.pendingSrc; delete v.dataset.pendingSrc; }
+        if (v.paused) { v.preload = 'auto'; v.play().catch(() => {}); }
+      }
+      else if (!v.paused) v.pause();
+    });
+    const updateAll = () => clipGroups.forEach(updateGroup);
+    window.Maska.refreshClips = updateAll; // for components that show/hide clips without scrolling
+    const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => { entries.forEach(e => (e.isIntersecting ? inView.add(e.target) : inView.delete(e.target))); updateAll(); }, { threshold: 0.25 }) : null;
+    clipGroups.forEach(g => {
+      g.clips.forEach(v => (io ? io.observe(v) : inView.add(v)));
+      if (g.toggle) {
+        g.toggle.hidden = false;
+        g.toggle.addEventListener('click', () => { g.wanted = !g.wanted; syncClipToggle(g); updateGroup(g); });
+      }
+      syncClipToggle(g);
+    });
+    const clipsLoaded = () => { clipsReady = true; clipGroups.forEach(syncClipToggle); updateAll(); };
+    if (clipsReady) setTimeout(clipsLoaded, 0);
+    else addEventListener('load', () => ('requestIdleCallback' in window ? requestIdleCallback(clipsLoaded, { timeout: 1000 }) : setTimeout(clipsLoaded, 150)), { once: true });
+    let clipTick = 0;
+    addEventListener('scroll', () => { if (!clipTick) clipTick = requestAnimationFrame(() => { clipTick = 0; updateAll(); }); }, { passive: true });
   }
   requestAnimationFrame(() => document.querySelector('[data-home-hero]')?.classList.add('is-ready'));
 })();
@@ -236,7 +280,11 @@
     dialog.querySelector('[data-dialog-category]').textContent = activeCard.querySelector('.product-category').textContent;
     const image = dialog.querySelector('[data-dialog-image]'); image.src = activeCard.dataset.image; image.alt = name;
     const dvid = dialog.querySelector('[data-dialog-video]');
-    if (dvid && activeCard.dataset.video) { dvid.src = activeCard.dataset.video; dvid.poster = activeCard.dataset.poster || ''; dvid.play().catch(() => {}); }
+    if (dvid && activeCard.dataset.video) {
+      dvid.poster = activeCard.dataset.poster || ''; dvid.src = activeCard.dataset.video;
+      // Reduced motion / Save-Data: still poster with native controls instead of an endless autoplay loop.
+      if (M.motionOk) { dvid.controls = false; dvid.play().catch(() => {}); } else { dvid.preload = 'none'; dvid.controls = true; }
+    }
     dialog.showModal();
   }));
   document.querySelectorAll('[data-product-id]').forEach(card => {
@@ -246,7 +294,7 @@
     card.addEventListener('pointerleave', () => { if (!card.classList.contains('video-on')) v.pause(); });
   });
   // On touch devices (iPhone & Android), auto-play visible product card videos as the user scrolls
-  if ('IntersectionObserver' in window && matchMedia('(hover: none), (pointer: coarse), (max-width: 760px)').matches) {
+  if (M.motionOk && 'IntersectionObserver' in window && matchMedia('(hover: none), (pointer: coarse), (max-width: 760px)').matches) {
     const cardObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         const v = entry.target.querySelector('[data-card-video]');
@@ -323,7 +371,12 @@
       const clipMap = { boeuf: 'hero-products-bavette', porc: 'food-pork-cubes', poulet: 'hero-custom-chicken', veau: 'food-veal-osso-buco' };
       const clip = clipMap[v.proteinId] || 'hero-products-bavette', pref = dvid.dataset.assetPrefix || '';
       const nextSrc = `${pref}assets/video/${clip}.mp4`;
-      if (dvid.dataset.currentClip !== clip) { dvid.dataset.currentClip = clip; dvid.src = nextSrc; dvid.poster = `${pref}assets/video/${clip}.webp`; dvid.play().catch(() => {}); }
+      if (dvid.dataset.currentClip !== clip) {
+        dvid.dataset.currentClip = clip; dvid.poster = `${pref}assets/video/${clip}.webp`;
+        // Before load (or with motion off) only the poster changes; the clip controller in core.js loads and plays it.
+        if (dvid.closest('[data-video-group]')?.dataset.clipPlay === '1') { delete dvid.dataset.pendingSrc; dvid.src = nextSrc; dvid.play().catch(() => {}); }
+        else dvid.dataset.pendingSrc = nextSrc; // applied by core.js when it starts the clip; nothing is fetched now
+      }
     }
     const scale = Math.max(0.6, Math.min(2.2, v.portion / 170));
     docket.querySelectorAll('[data-slice-bar]').forEach(el => { el.style.transform = `scaleX(${scale.toFixed(2)})`; });

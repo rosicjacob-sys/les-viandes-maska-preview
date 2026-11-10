@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Option lab | Les Viandes Maska</title><meta name="robots" content="noindex, nofollow, noarchive">
+<style>
+:root{--ink:#090d14;--muted:#475569;--paper:#fff;--raised:#f6f8fb;--line:#e2e8f0;--blue:#0d5cab;--blue2:#38bdf8;--stage:#070a0f;--amber:#fde68a}
+*{box-sizing:border-box}body{margin:0;background:var(--raised);color:var(--ink);font:16px/1.5 Jost,"Century Gothic",Arial,sans-serif}
+a{color:var(--blue)}a:focus-visible,input:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.top{background:var(--stage);color:#fff;padding:40px 16px 34px}.wrap{max-width:1320px;margin:0 auto}
+.top .eyebrow{color:var(--blue2);font:700 12px/1 Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+h1{font:600 clamp(36px,5vw,60px)/1 "Barlow Condensed","Arial Narrow",sans-serif;margin:12px 0 14px}
+.top p{max-width:72ch;color:#cbd5e1;margin:0 0 10px}.top a{color:var(--blue2);font-weight:600}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.fact{border:1px solid #1e293b;border-radius:3px;padding:8px 12px;font-size:13px;color:#e2e8f0}
+.top .fixed{background:var(--amber);color:#111;border-radius:3px;padding:14px 16px;margin:22px 0 0;font-size:14px}
+main{padding:24px 16px 120px}.area{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:22px;margin:0 0 22px}
+.area-head{display:flex;gap:14px;align-items:baseline}.num{font:700 12px/1 Arial,sans-serif;color:var(--blue);letter-spacing:.1em}
+h2{font:600 clamp(26px,3vw,36px)/1.05 "Barlow Condensed","Arial Narrow",sans-serif;margin:0 0 16px}
+.opts{display:grid;gap:16px}.opts-2{grid-template-columns:repeat(2,minmax(0,1fr))}.opts-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opt{border:1px solid var(--line);border-radius:4px;padding:14px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.opt.is-rec{border-color:var(--blue)}.opt:has(input:checked){outline:3px solid var(--ink);outline-offset:-1px}
+.pick{display:flex;flex-wrap:wrap;align-items:center;gap:8px;cursor:pointer;font-weight:700}.pick input{width:20px;height:20px;accent-color:var(--ink)}
+.letter{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;font-size:13px}
+.tag{font-size:11px;letter-spacing:.06em;text-transform:uppercase;border-radius:2px;padding:3px 7px}.tag-live{background:#e2e8f0;color:#111}.tag-rec{background:var(--blue);color:#fff}
+.shots{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:8px;align-items:start}.shots img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:3px;background:var(--stage)}
+.what{margin:0;font-size:14px}.trade{margin:0;font-size:13px;color:var(--muted)}.links{margin:0;font-size:13px}
+.notes{display:grid;gap:6px;margin-top:14px;font-size:13px;font-weight:600}textarea{font:inherit;font-weight:400;border:1px solid #94a3b8;border-radius:3px;padding:8px;width:100%}
+.answer{position:fixed;left:0;right:0;bottom:0;background:var(--stage);color:#fff;padding:12px 16px;z-index:5;border-top:1px solid #1e293b}
+.answer .wrap{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}.answer p{margin:0;font-size:14px;color:#cbd5e1}.answer b{color:#fff}
+button{font:600 14px/1 Jost,Arial,sans-serif;border:0;border-radius:3px;padding:12px 16px;cursor:pointer;min-height:44px}.primary{background:var(--blue);color:#fff}.ghost{background:transparent;color:#fff;border:1px solid #334155}
+#answer-text{width:100%;min-height:150px;margin-top:10px;color:#111}.out{display:none;max-width:1320px;margin:0 auto}.out.on{display:block}
+@media(max-width:1000px){.opts-2,.opts-3{grid-template-columns:1fr}}
+</style></head><body>
+<header class="top"><div class="wrap"><p class="eyebrow">Les Viandes Maska · option lab · 2026-11-10</p>
+<h1>Pick what goes into the final version</h1>
+<p>Each decision below shows the live site (A) next to one or two alternatives built on the real pages, in French and English. Pick one per decision, add a note if you want, then press <b>Copy my answer</b> and paste it back to me. I build the final version from your picks only.</p>
+<p>Want to feel everything at once? <a href="recommande/index.html">Open the recommended mix</a> (every recommended option together) or the <a href="../index.html">live site</a>. Every lab page has a yellow bar to jump between options.</p>
+<div class="facts"><span class="fact">8 decisions</span><span class="fact">10 alternatives + recommended mix</span><span class="fact">100 page checks: axe, overflow, errors</span><span class="fact">40 interaction checks</span><span class="fact">0 paid media: frames cut from your own clips</span></div>
+<p class="fixed"><b>Already fixed on the live site (no choice needed):</b> product videos on the inner pages no longer play before the page appears or under "reduce motion"/data saver, they pause off-screen, and each one now has a play/pause button (140 checks on 14 pages).</p></div></header>
+<main><div class="wrap">
+<section class="area" data-area="hero" aria-labelledby="h-hero">
+  <header class="area-head"><span class="num">01</span><h2 id="h-hero">Home hero: how the rib steak moves</h2></header>
+  <div class="opts opts-3"><article class="opt">
+    <label class="pick"><input type="radio" name="pick-hero" value="a"><span class="letter">A</span><span class="name">Turning loop (current)</span><span class="tag tag-live">Live now</span></label>
+    <div class="shots"><a href="../index.html"><img src="shots/hero-a-1440.jpg" width="1200" height="750" alt="Turning loop (current), desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="../index.html"><img src="shots/hero-a-390.jpg" width="390" height="844" alt="Turning loop (current), phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">The 360° rib steak turns on its own in a loop after the page appears; play/pause button.</p><p class="trade"><b>Tradeoff.</b> Effortless and calm, but the visitor only watches.</p>
+    <p class="links">Open it: <a href="../index.html">FR page</a> · <a href="../en/index.html">EN page</a></p>
+  </article><article class="opt is-rec">
+    <label class="pick"><input type="radio" name="pick-hero" value="b"><span class="letter">B</span><span class="name">Turn the cut yourself</span><span class="tag tag-rec">Recommended</span></label>
+    <div class="shots"><a href="hero-b/index.html"><img src="shots/hero-b-1440.jpg" width="1200" height="750" alt="Turn the cut yourself, desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="hero-b/index.html"><img src="shots/hero-b-390.jpg" width="390" height="844" alt="Turn the cut yourself, phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">The visitor grabs the steak (mouse, finger or arrow keys) and turns it to inspect the marbling and fat cap. It turns once on arrival to show it can be moved.</p><p class="trade"><b>Tradeoff.</b> The most memorable, hands-on first screen and a real reason to stay. Adds 48 still frames (about 1.6 MB on desktop) loaded after the page appears.</p>
+    <p class="links">Open it: <a href="hero-b/index.html">FR page</a> · <a href="hero-b/en/index.html">EN page</a></p>
+  </article><article class="opt">
+    <label class="pick"><input type="radio" name="pick-hero" value="c"><span class="letter">C</span><span class="name">Turns as you scroll</span></label>
+    <div class="shots"><a href="hero-c/index.html"><img src="shots/hero-c-1440.jpg" width="1200" height="750" alt="Turns as you scroll, desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="hero-c/index.html"><img src="shots/hero-c-390.jpg" width="390" height="844" alt="Turns as you scroll, phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">The steak turns with the scroll as the visitor moves down past the hero; it stops when they stop.</p><p class="trade"><b>Tradeoff.</b> Cinematic and effortless, tied to normal scrolling (no scroll-jacking). Less discoverable than B and only moves while the hero is on screen.</p>
+    <p class="links">Open it: <a href="hero-c/index.html">FR page</a> · <a href="hero-c/en/index.html">EN page</a></p>
+  </article></div>
+  <label class="notes">Notes for this decision (optional)<textarea name="note-hero" rows="2" placeholder="Anything to adjust, combine or avoid"></textarea></label>
+</section>
+<section class="area" data-area="inner" aria-labelledby="h-inner">
+  <header class="area-head"><span class="num">02</span><h2 id="h-inner">Inner page heroes (Produits, Sur mesure, Distribution, Notre histoire, Carrières, Nous joindre)</h2></header>
+  <div class="opts opts-2"><article class="opt">
+    <label class="pick"><input type="radio" name="pick-inner" value="a"><span class="letter">A</span><span class="name">Light split (current)</span><span class="tag tag-live">Live now</span></label>
+    <div class="shots"><a href="../a-propos.html"><img src="shots/inner-a-1440.jpg" width="1200" height="750" alt="Light split (current), desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="../a-propos.html"><img src="shots/inner-a-390.jpg" width="390" height="844" alt="Light split (current), phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">Headline on a light background, product clip in a framed box on the right.</p><p class="trade"><b>Tradeoff.</b> Clean and readable, but all six pages look alike and quieter than the new Home.</p>
+    <p class="links">Open it: <a href="../a-propos.html">FR page</a> · <a href="../en/about.html">EN page</a></p>
+  </article><article class="opt is-rec">
+    <label class="pick"><input type="radio" name="pick-inner" value="b"><span class="letter">B</span><span class="name">Dark cinema stage</span><span class="tag tag-rec">Recommended</span></label>
+    <div class="shots"><a href="inner-b/a-propos.html"><img src="shots/inner-b-1440.jpg" width="1200" height="750" alt="Dark cinema stage, desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="inner-b/a-propos.html"><img src="shots/inner-b-390.jpg" width="390" height="844" alt="Dark cinema stage, phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">Each page opens like the Home: its product clip fills the hero behind the headline on a carbon-black stage.</p><p class="trade"><b>Tradeoff.</b> One consistent, premium feel from Home to every page; food looks richer on black. Heavier first impression; text sits over video (contrast is checked).</p>
+    <p class="links">Open it: <a href="inner-b/a-propos.html">FR page</a> · <a href="inner-b/en/about.html">EN page</a></p>
+  </article></div>
+  <label class="notes">Notes for this decision (optional)<textarea name="note-inner" rows="2" placeholder="Anything to adjust, combine or avoid"></textarea></label>
+</section>
+<section class="area" data-area="expertise" aria-labelledby="h-expertise">
+  <header class="area-head"><span class="num">03</span><h2 id="h-expertise">Home: the five expertise cards</h2></header>
+  <div class="opts opts-2"><article class="opt">
+    <label class="pick"><input type="radio" name="pick-expertise" value="a"><span class="letter">A</span><span class="name">Five-card grid (current)</span><span class="tag tag-live">Live now</span></label>
+    <div class="shots"><a href="../index.html"><img src="shots/expertise-a-1440.jpg" width="1200" height="750" alt="Five-card grid (current), desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="../index.html"><img src="shots/expertise-a-390.jpg" width="390" height="844" alt="Five-card grid (current), phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">Five equal cards with a product photo; the clip plays on hover.</p><p class="trade"><b>Tradeoff.</b> Scannable; feels like a standard product grid.</p>
+    <p class="links">Open it: <a href="../index.html">FR page</a> · <a href="../en/index.html">EN page</a></p>
+  </article><article class="opt is-rec">
+    <label class="pick"><input type="radio" name="pick-expertise" value="b"><span class="letter">B</span><span class="name">Expanding cinema reel</span><span class="tag tag-rec">Recommended</span></label>
+    <div class="shots"><a href="expertise-b/index.html"><img src="shots/expertise-b-1440.jpg" width="1200" height="750" alt="Expanding cinema reel, desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="expertise-b/index.html"><img src="shots/expertise-b-390.jpg" width="390" height="844" alt="Expanding cinema reel, phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">One wide panel plays its clip; the other four are slim columns with vertical titles. Hover, tap or keyboard opens the next.</p><p class="trade"><b>Tradeoff.</b> More editorial and alive; one story at a time. On phones it becomes a stacked accordion.</p>
+    <p class="links">Open it: <a href="expertise-b/index.html">FR page</a> · <a href="expertise-b/en/index.html">EN page</a></p>
+  </article></div>
+  <label class="notes">Notes for this decision (optional)<textarea name="note-expertise" rows="2" placeholder="Anything to adjust, combine or avoid"></textarea></label>
+</section>
+<section class="area" data-area="sectors" aria-labelledby="h-sectors">
+  <header class="area-head"><span class="num">04</span><h2 id="h-sectors">Home: &quot;Votre réalité n&#39;est pas générique&quot; (who Maska serves)</h2></header>
+  <div class="opts opts-2"><article class="opt">
+    <label class="pick"><input type="radio" name="pick-sectors" value="a"><span class="letter">A</span><span class="name">Scrolling ribbon + grid (current)</span><span class="tag tag-live">Live now</span></label>
+    <div class="shots"><a href="../index.html"><img src="shots/sectors-a-1440.jpg" width="1200" height="750" alt="Scrolling ribbon + grid (current), desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="../index.html"><img src="shots/sectors-a-390.jpg" width="390" height="844" alt="Scrolling ribbon + grid (current), phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">The 12 sectors scroll in a ribbon, then repeat in a grid, with a pause bar.</p><p class="trade"><b>Tradeoff.</b> Shows breadth, but says the same thing twice and the pause bar looks unfinished.</p>
+    <p class="links">Open it: <a href="../index.html">FR page</a> · <a href="../en/index.html">EN page</a></p>
+  </article><article class="opt is-rec">
+    <label class="pick"><input type="radio" name="pick-sectors" value="b"><span class="letter">B</span><span class="name">&quot;I run a...&quot; sector picker</span><span class="tag tag-rec">Recommended</span></label>
+    <div class="shots"><a href="sectors-b/index.html"><img src="shots/sectors-b-1440.jpg" width="1200" height="750" alt="&quot;I run a...&quot; sector picker, desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="sectors-b/index.html"><img src="shots/sectors-b-390.jpg" width="390" height="844" alt="&quot;I run a...&quot; sector picker, phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">The visitor picks their kind of establishment; the request form is pre-filled with the matching customer type and sector.</p><p class="trade"><b>Tradeoff.</b> Turns a list into the first step of an order. No new claims: the panel only routes to an advisor.</p>
+    <p class="links">Open it: <a href="sectors-b/index.html">FR page</a> · <a href="sectors-b/en/index.html">EN page</a></p>
+  </article></div>
+  <label class="notes">Notes for this decision (optional)<textarea name="note-sectors" rows="2" placeholder="Anything to adjust, combine or avoid"></textarea></label>
+</section>
+<section class="area" data-area="story" aria-labelledby="h-story">
+  <header class="area-head"><span class="num">05</span><h2 id="h-story">Home: history teaser</h2></header>
+  <div class="opts opts-2"><article class="opt">
+    <label class="pick"><input type="radio" name="pick-story" value="a"><span class="letter">A</span><span class="name">Giant 2001 (current)</span><span class="tag tag-live">Live now</span></label>
+    <div class="shots"><a href="../index.html"><img src="shots/story-a-1440.jpg" width="1200" height="750" alt="Giant 2001 (current), desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="../index.html"><img src="shots/story-a-390.jpg" width="390" height="844" alt="Giant 2001 (current), phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">A very large grey &quot;2001&quot; beside the history text.</p><p class="trade"><b>Tradeoff.</b> Bold, but the same oversized-year look you flagged on Notre histoire, in an off-palette warm grey.</p>
+    <p class="links">Open it: <a href="../index.html">FR page</a> · <a href="../en/index.html">EN page</a></p>
+  </article><article class="opt is-rec">
+    <label class="pick"><input type="radio" name="pick-story" value="b"><span class="letter">B</span><span class="name">Milestone strip</span><span class="tag tag-rec">Recommended</span></label>
+    <div class="shots"><a href="story-b/index.html"><img src="shots/story-b-1440.jpg" width="1200" height="750" alt="Milestone strip, desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="story-b/index.html"><img src="shots/story-b-390.jpg" width="390" height="844" alt="Milestone strip, phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">The seven sourced milestones (2001 to 2022) on one drawn line, each opening Notre histoire.</p><p class="trade"><b>Tradeoff.</b> Tells the growth story at a glance and matches the brand blue. Slightly more text.</p>
+    <p class="links">Open it: <a href="story-b/index.html">FR page</a> · <a href="story-b/en/index.html">EN page</a></p>
+  </article></div>
+  <label class="notes">Notes for this decision (optional)<textarea name="note-story" rows="2" placeholder="Anything to adjust, combine or avoid"></textarea></label>
+</section>
+<section class="area" data-area="timeline" aria-labelledby="h-timeline">
+  <header class="area-head"><span class="num">06</span><h2 id="h-timeline">Notre histoire: the timeline</h2></header>
+  <div class="opts opts-3"><article class="opt">
+    <label class="pick"><input type="radio" name="pick-timeline" value="a"><span class="letter">A</span><span class="name">Year tabs + full list (current)</span><span class="tag tag-live">Live now</span></label>
+    <div class="shots"><a href="../a-propos.html"><img src="shots/timeline-a-1440.jpg" width="1200" height="750" alt="Year tabs + full list (current), desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="../a-propos.html"><img src="shots/timeline-a-390.jpg" width="390" height="844" alt="Year tabs + full list (current), phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">Clickable year tabs with a large year, then the same seven milestones again as a list.</p><p class="trade"><b>Tradeoff.</b> Interactive, but repeats every milestone twice.</p>
+    <p class="links">Open it: <a href="../a-propos.html">FR page</a> · <a href="../en/about.html">EN page</a></p>
+  </article><article class="opt">
+    <label class="pick"><input type="radio" name="pick-timeline" value="b"><span class="letter">B</span><span class="name">Year tabs only</span></label>
+    <div class="shots"><a href="timeline-b/a-propos.html"><img src="shots/timeline-b-1440.jpg" width="1200" height="750" alt="Year tabs only, desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="timeline-b/a-propos.html"><img src="shots/timeline-b-390.jpg" width="390" height="844" alt="Year tabs only, phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">Keep only the clickable years with the contained large year.</p><p class="trade"><b>Tradeoff.</b> Compact and interactive; visitors must click to read each year.</p>
+    <p class="links">Open it: <a href="timeline-b/a-propos.html">FR page</a> · <a href="timeline-b/en/about.html">EN page</a></p>
+  </article><article class="opt is-rec">
+    <label class="pick"><input type="radio" name="pick-timeline" value="c"><span class="letter">C</span><span class="name">Drawn list only</span><span class="tag tag-rec">Recommended</span></label>
+    <div class="shots"><a href="timeline-c/a-propos.html"><img src="shots/timeline-c-1440.jpg" width="1200" height="750" alt="Drawn list only, desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="timeline-c/a-propos.html"><img src="shots/timeline-c-390.jpg" width="390" height="844" alt="Drawn list only, phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">Keep only the vertical list whose blue line draws as you scroll.</p><p class="trade"><b>Tradeoff.</b> Everything readable at a glance, no repetition, no giant year.</p>
+    <p class="links">Open it: <a href="timeline-c/a-propos.html">FR page</a> · <a href="timeline-c/en/about.html">EN page</a></p>
+  </article></div>
+  <label class="notes">Notes for this decision (optional)<textarea name="note-timeline" rows="2" placeholder="Anything to adjust, combine or avoid"></textarea></label>
+</section>
+<section class="area" data-area="closing" aria-labelledby="h-closing">
+  <header class="area-head"><span class="num">07</span><h2 id="h-closing">Closing band at the bottom of every page</h2></header>
+  <div class="opts opts-2"><article class="opt">
+    <label class="pick"><input type="radio" name="pick-closing" value="a"><span class="letter">A</span><span class="name">Headline + two buttons (current)</span><span class="tag tag-live">Live now</span></label>
+    <div class="shots"><a href="../contact.html"><img src="shots/closing-a-1440.jpg" width="1200" height="750" alt="Headline + two buttons (current), desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="../contact.html"><img src="shots/closing-a-390.jpg" width="390" height="844" alt="Headline + two buttons (current), phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">Large headline, short text, &quot;Ma demande&quot; and &quot;Nous joindre&quot;.</p><p class="trade"><b>Tradeoff.</b> Simple; the right half of the band is empty.</p>
+    <p class="links">Open it: <a href="../contact.html">FR page</a> · <a href="../en/contact.html">EN page</a></p>
+  </article><article class="opt is-rec">
+    <label class="pick"><input type="radio" name="pick-closing" value="b"><span class="letter">B</span><span class="name">Live contact card</span><span class="tag tag-rec">Recommended</span></label>
+    <div class="shots"><a href="closing-b/contact.html"><img src="shots/closing-b-1440.jpg" width="1200" height="750" alt="Live contact card, desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="closing-b/contact.html"><img src="shots/closing-b-390.jpg" width="390" height="844" alt="Live contact card, phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">Adds a card with open/closed status right now (Saint-Hyacinthe time), phone, email, address and hours.</p><p class="trade"><b>Tradeoff.</b> Answers &quot;can I call now?&quot; without leaving the page. Uses the published hours only.</p>
+    <p class="links">Open it: <a href="closing-b/contact.html">FR page</a> · <a href="closing-b/en/contact.html">EN page</a></p>
+  </article></div>
+  <label class="notes">Notes for this decision (optional)<textarea name="note-closing" rows="2" placeholder="Anything to adjust, combine or avoid"></textarea></label>
+</section>
+<section class="area" data-area="catalogue" aria-labelledby="h-catalogue">
+  <header class="area-head"><span class="num">08</span><h2 id="h-catalogue">Produits: the product detail window</h2></header>
+  <div class="opts opts-2"><article class="opt">
+    <label class="pick"><input type="radio" name="pick-catalogue" value="a"><span class="letter">A</span><span class="name">Looping clip (current)</span><span class="tag tag-live">Live now</span></label>
+    <div class="shots"><a href="../produits.html"><img src="shots/catalogue-a-1440.jpg" width="1200" height="750" alt="Looping clip (current), desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="../produits.html"><img src="shots/catalogue-a-390.jpg" width="390" height="844" alt="Looping clip (current), phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">Opening a product shows its turning clip on a loop.</p><p class="trade"><b>Tradeoff.</b> Effortless to watch.</p>
+    <p class="links">Open it: <a href="../produits.html">FR page</a> · <a href="../en/products.html">EN page</a></p>
+  </article><article class="opt is-rec">
+    <label class="pick"><input type="radio" name="pick-catalogue" value="b"><span class="letter">B</span><span class="name">Turn the product yourself</span><span class="tag tag-rec">Recommended</span></label>
+    <div class="shots"><a href="catalogue-b/produits.html"><img src="shots/catalogue-b-1440.jpg" width="1200" height="750" alt="Turn the product yourself, desktop capture" loading="lazy" decoding="async"></a><a class="phone" href="catalogue-b/produits.html"><img src="shots/catalogue-b-390.jpg" width="390" height="844" alt="Turn the product yourself, phone capture" loading="lazy" decoding="async"></a></div>
+    <p class="what">The product turns once, then the visitor drags (or uses arrow keys) to inspect it from every side.</p><p class="trade"><b>Tradeoff.</b> Same hands-on feel as Home option B for all 45 products; about 24 small frames per product family clip, loaded only when a product is opened.</p>
+    <p class="links">Open it: <a href="catalogue-b/produits.html">FR page</a> · <a href="catalogue-b/en/products.html">EN page</a></p>
+  </article></div>
+  <label class="notes">Notes for this decision (optional)<textarea name="note-catalogue" rows="2" placeholder="Anything to adjust, combine or avoid"></textarea></label>
+</section>
+</div></main>
+<div class="answer" role="region" aria-label="Your answer"><div class="wrap"><p><b data-count>0</b> of 8 decisions picked. Nothing changes on the live site until you send this.</p><button type="button" class="primary" data-copy>Copy my answer</button><button type="button" class="ghost" data-reset>Clear my picks</button><span data-status aria-live="polite"></span></div>
+<div class="out" data-out><textarea id="answer-text" aria-label="Your answer text" readonly></textarea></div></div>
+<script>
+(() => {
+  const KEY = 'maska.lab.v1', areas = [{"id":"hero","title":"Home hero: how the rib steak moves","options":[{"id":"a","name":"Turning loop (current)"},{"id":"b","name":"Turn the cut yourself"},{"id":"c","name":"Turns as you scroll"}]},{"id":"inner","title":"Inner page heroes (Produits, Sur mesure, Distribution, Notre histoire, Carrières, Nous joindre)","options":[{"id":"a","name":"Light split (current)"},{"id":"b","name":"Dark cinema stage"}]},{"id":"expertise","title":"Home: the five expertise cards","options":[{"id":"a","name":"Five-card grid (current)"},{"id":"b","name":"Expanding cinema reel"}]},{"id":"sectors","title":"Home: \"Votre réalité n'est pas générique\" (who Maska serves)","options":[{"id":"a","name":"Scrolling ribbon + grid (current)"},{"id":"b","name":"\"I run a...\" sector picker"}]},{"id":"story","title":"Home: history teaser","options":[{"id":"a","name":"Giant 2001 (current)"},{"id":"b","name":"Milestone strip"}]},{"id":"timeline","title":"Notre histoire: the timeline","options":[{"id":"a","name":"Year tabs + full list (current)"},{"id":"b","name":"Year tabs only"},{"id":"c","name":"Drawn list only"}]},{"id":"closing","title":"Closing band at the bottom of every page","options":[{"id":"a","name":"Headline + two buttons (current)"},{"id":"b","name":"Live contact card"}]},{"id":"catalogue","title":"Produits: the product detail window","options":[{"id":"a","name":"Looping clip (current)"},{"id":"b","name":"Turn the product yourself"}]}];
+  let state = {}; try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* private mode: picks stay for this visit */ } };
+  const count = document.querySelector('[data-count]');
+  const text = () => { const lines = ['Maska option lab answer (' + new Date().toISOString().slice(0, 10) + ')']; areas.forEach((a, i) => { const p = state['pick-' + a.id], o = a.options.find(x => x.id === p), n = (state['note-' + a.id] || '').trim(); lines.push((i + 1) + '. ' + a.title + ': ' + (o ? o.id.toUpperCase() + ' (' + o.name + ')' : 'no pick') + (n ? ' | note: ' + n : '')); }); return lines.join('\n'); };
+  const sync = () => { count.textContent = String(areas.filter(a => state['pick-' + a.id]).length); };
+  document.querySelectorAll('input[type=radio]').forEach(r => { if (state[r.name] === r.value) r.checked = true; r.addEventListener('change', () => { state[r.name] = r.value; save(); sync(); }); });
+  document.querySelectorAll('textarea[name^="note-"]').forEach(t => { t.value = state[t.name] || ''; t.addEventListener('input', () => { state[t.name] = t.value; save(); }); });
+  const out = document.querySelector('[data-out]'), ta = document.getElementById('answer-text'), status = document.querySelector('[data-status]');
+  document.querySelector('[data-copy]').addEventListener('click', async () => { ta.value = text(); out.classList.add('on'); ta.select(); try { await navigator.clipboard.writeText(ta.value); status.textContent = 'Copied. Paste it to Claude.'; } catch (e) { status.textContent = 'Select the text below and copy it.'; } });
+  document.querySelector('[data-reset]').addEventListener('click', () => { state = {}; save(); document.querySelectorAll('input[type=radio]').forEach(r => { r.checked = false; }); document.querySelectorAll('textarea[name^="note-"]').forEach(t => { t.value = ''; }); out.classList.remove('on'); sync(); status.textContent = 'Picks cleared.'; });
+  sync();
+})();
+</script></body></html>

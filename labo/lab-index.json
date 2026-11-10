@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-11-10T10:37:24.778Z",
+  "base": {
+    "hero": "a",
+    "inner": "a",
+    "expertise": "a",
+    "sectors": "a",
+    "story": "a",
+    "timeline": "a",
+    "closing": "a",
+    "catalogue": "a"
+  },
+  "mix": {
+    "hero": "b",
+    "inner": "b",
+    "expertise": "b",
+    "sectors": "b",
+    "story": "b",
+    "timeline": "c",
+    "closing": "b",
+    "catalogue": "b"
+  },
+  "folders": [
+    "hero-b",
+    "hero-c",
+    "inner-b",
+    "expertise-b",
+    "sectors-b",
+    "story-b",
+    "timeline-b",
+    "timeline-c",
+    "closing-b",
+    "catalogue-b",
+    "recommande"
+  ],
+  "pages": [
+    "index.html",
+    "en/index.html",
+    "produits.html",
+    "en/products.html",
+    "sur-mesure.html",
+    "en/custom-cut.html",
+    "distribution.html",
+    "en/distribution.html",
+    "a-propos.html",
+    "en/about.html",
+    "carrieres.html",
+    "en/careers.html",
+    "contact.html",
+    "en/contact.html",
+    "demande.html",
+    "en/inquiry.html",
+    "confidentialite.html",
+    "en/privacy.html"
+  ]
+}
