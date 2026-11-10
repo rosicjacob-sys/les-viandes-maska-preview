@@ -82,18 +82,29 @@
   // ---------- Home hero B (drag) / C (scroll) ----------
   const heroCv = document.querySelector('[data-spin-canvas]');
   if (heroCv) {
-    const hero = heroCv.closest('.cinema-360-hero'), poster = hero.querySelector('.cinema-360-poster');
+    const hero = heroCv.closest('[data-home-hero]'), poster = hero.querySelector('img');
     const count = +heroCv.dataset.spinCount, mode = heroCv.dataset.spinMode;
     const wide = heroCv.getBoundingClientRect().width * Math.min(window.devicePixelRatio || 1, 2) > 1000;
     const fit = () => { const p = getComputedStyle(poster).objectPosition.split(' ').map(v => parseFloat(v) / 100); return [isNaN(p[0]) ? .5 : p[0], isNaN(p[1]) ? .5 : p[1]]; };
     const handle = hero.querySelector('[data-spin-handle]'), meter = hero.querySelector('[data-spin-meter]');
     const spin = makeSpin({ canvas: heroCv, base: heroCv.dataset.spinBase + (wide ? '1280/' : '854/'), count, fit, onChange: sliderSync(handle, meter, count) });
-    hero.classList.add(mode === 'drag' ? 'spin-drag' : 'spin-scroll');
+    hero.classList.add(mode === 'scroll' ? 'spin-scroll' : 'spin-drag');
     if (mode === 'drag') {
       let stopHint = () => {}, started = false;
       const start = () => { if (started) return; started = true; spin.loadAll(); };
       bindTurn({ surface: hero, handle, spin, span: () => hero.clientWidth * 0.6, onStart: () => { stopHint(); start(); } });
       if (motionOk) afterLoad(() => { start(); spin.load(0).then(() => spin.loadAll()).then(() => { if (!hero.classList.contains('is-dragging')) stopHint = hint(spin); }); });
+    } else if (mode === 'both') {
+      // Scroll sets the base frame; drag and keys add an offset on top. Reduced motion: no scroll turn, no hint.
+      let base = 0, offset = 0, started = false, stopHint = () => {}, tick = 0;
+      const scrollBase = () => { const r = hero.getBoundingClientRect(); return Math.max(0, Math.min(1, -r.top / Math.max(1, r.height * 0.75))) * (count - 1); };
+      const view = { set: i => { offset = Math.max(0, Math.min(count - 1, i)) - base; spin.set(base + offset); }, get cur() { return spin.cur; }, count };
+      const start = () => { if (started) return; started = true; base = motionOk ? scrollBase() : 0; spin.loadAll(); };
+      bindTurn({ surface: hero, handle, spin: view, span: () => hero.clientWidth * 0.6, onStart: () => { stopHint(); start(); } });
+      if (motionOk) {
+        addEventListener('scroll', () => { if (!tick) tick = requestAnimationFrame(() => { tick = 0; if (!started) return; stopHint(); base = scrollBase(); spin.set(base + offset); }); }, { passive: true });
+        afterLoad(() => { start(); spin.load(0).then(() => spin.loadAll()).then(() => { if (!hero.classList.contains('is-dragging') && scrollY < 40) stopHint = hint(view); }); });
+      }
     } else if (motionOk) {
       afterLoad(() => {
         spin.loadAll();
