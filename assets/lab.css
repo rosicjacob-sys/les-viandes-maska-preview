@@ -157,7 +157,7 @@
 @media(max-width:1000px){.fc-section .fc-grid{grid-template-columns:1fr}}
 
 /* ---- Catalogue B: turn the product in the dialog ---- */
-.dlg-spin{position:absolute;inset:0;width:100%;height:100%;z-index:2;opacity:0;transition:opacity .35s}
+.dlg-spin{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:0;transition:opacity .35s}
 .dlg-spin.is-on{opacity:1}
 .dialog-product-image:has(.dlg-spin:not([hidden])){touch-action:pan-y;cursor:grab}
 .dialog-product-image.is-dragging{cursor:grabbing;user-select:none}

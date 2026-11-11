@@ -181,7 +181,7 @@
       g.toggle.classList.toggle('is-playing', g.wanted);
     };
     const updateGroup = g => g.clips.forEach(v => {
-      if (g.wanted && clipsReady && inView.has(v) && shown(v)) {
+      if (g.wanted && clipsReady && inView.has(v) && shown(v) && v.dataset.noClip !== '1') { // noClip: this preview is a photo only
         if (v.dataset.pendingSrc) { v.src = v.dataset.pendingSrc; delete v.dataset.pendingSrc; }
         if (v.paused) { v.preload = 'auto'; v.play().catch(() => {}); }
       }
@@ -281,9 +281,12 @@
     const image = dialog.querySelector('[data-dialog-image]'); image.src = activeCard.dataset.image; image.alt = name;
     const dvid = dialog.querySelector('[data-dialog-video]');
     if (dvid && activeCard.dataset.video) {
-      dvid.poster = activeCard.dataset.poster || ''; dvid.src = activeCard.dataset.video;
+      dvid.hidden = false; dvid.poster = activeCard.dataset.poster || ''; dvid.src = activeCard.dataset.video;
       // Reduced motion / Save-Data: still poster with native controls instead of an endless autoplay loop.
       if (M.motionOk) { dvid.controls = false; dvid.play().catch(() => {}); } else { dvid.preload = 'none'; dvid.controls = true; }
+    } else if (dvid) {
+      // This product has no clip of its own: show its photo only, and never leave the previous product's clip in place.
+      dvid.pause(); dvid.removeAttribute('src'); dvid.removeAttribute('poster'); dvid.controls = false; dvid.load(); dvid.hidden = true;
     }
     dialog.showModal();
   }));
@@ -368,14 +371,22 @@
     document.querySelector('[data-portion-output]').textContent = `${v.portion} g`;
     const dvid = docket.querySelector('[data-docket-video]');
     if (dvid) {
-      const clipMap = { boeuf: 'hero-products-bavette', porc: 'food-pork-cubes', poulet: 'hero-custom-chicken', veau: 'food-veal-osso-buco' };
-      const clip = clipMap[v.proteinId] || 'hero-products-bavette', pref = dvid.dataset.assetPrefix || '';
-      const nextSrc = `${pref}assets/video/${clip}.mp4`;
-      if (dvid.dataset.currentClip !== clip) {
-        dvid.dataset.currentClip = clip; dvid.poster = `${pref}assets/video/${clip}.webp`;
-        // Before load (or with motion off) only the poster changes; the clip controller in core.js loads and plays it.
-        if (dvid.closest('[data-video-group]')?.dataset.clipPlay === '1') { delete dvid.dataset.pendingSrc; dvid.src = nextSrc; dvid.play().catch(() => {}); }
-        else dvid.dataset.pendingSrc = nextSrc; // applied by core.js when it starts the clip; nothing is fetched now
+      // Preview per protein: the clip of a real product of that protein, or its photo when that protein has no clip.
+      // Veal has no clip of its own, so it shows the photo of a veal product (247) and never a look-alike clip.
+      const media = { boeuf: { clip: 'hero-products-bavette' }, porc: { clip: 'turn-pork-cubes-505' }, poulet: { clip: 'hero-custom-chicken' }, veau: { still: 'assets/products/247.webp' } }[v.proteinId] || { clip: 'hero-products-bavette' };
+      const pref = dvid.dataset.assetPrefix || '', key = media.clip || media.still;
+      if (dvid.dataset.currentClip !== key) {
+        dvid.dataset.currentClip = key;
+        dvid.closest('.docket-video-stage')?.classList.toggle('no-clip', !media.clip);
+        if (!media.clip) {
+          dvid.dataset.noClip = '1'; delete dvid.dataset.pendingSrc; dvid.pause(); dvid.removeAttribute('src'); dvid.poster = `${pref}${media.still}`; dvid.load();
+        } else {
+          delete dvid.dataset.noClip;
+          const nextSrc = `${pref}assets/video/${media.clip}.mp4`; dvid.poster = `${pref}assets/video/${media.clip}.webp`;
+          // Before load (or with motion off) only the poster changes; the clip controller in core.js loads and plays it.
+          if (dvid.closest('[data-video-group]')?.dataset.clipPlay === '1') { delete dvid.dataset.pendingSrc; dvid.src = nextSrc; dvid.play().catch(() => {}); }
+          else dvid.dataset.pendingSrc = nextSrc; // applied by core.js when it starts the clip; nothing is fetched now
+        }
       }
     }
     const scale = Math.max(0.6, Math.min(2.2, v.portion / 170));

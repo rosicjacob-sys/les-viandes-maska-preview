@@ -125,14 +125,17 @@
     let bound = false, current = null;
     document.querySelectorAll('[data-view-product]').forEach(btn => btn.addEventListener('click', () => {
       const card = btn.closest('[data-product-id]'), base = card && card.dataset.spinBase;
-      if (!base) return;
+      if (!base) { // this product has no clip of its own: its photo only, and no leftover turn view from the previous product
+        if (spin) { spin.destroy(); spin = null; current = null; }
+        stopHint(); dcv.classList.remove('is-on'); dcv.hidden = true; dh.hidden = true; return;
+      }
       setTimeout(() => { // after catalogue.js has filled and opened the dialog
         const vid = dlg.querySelector('[data-dialog-video]');
         if (vid) { vid.pause(); vid.removeAttribute('src'); vid.load(); vid.hidden = true; }
         spin && spin.destroy(); dcv.classList.remove('is-on'); dcv.hidden = false; dh.hidden = false;
         spin = makeSpin({ canvas: dcv, base, count: 24, fit: () => [.5, .5], onChange: sliderSync(dh, null, 24) });
         current = spin;
-        if (!bound) { bound = true; bindTurn({ surface: area, handle: dh, spin: { set: i => current.set(i), get cur() { return current.cur; }, get count() { return current.count; } }, span: () => area.clientWidth * 0.9, onStart: () => { stopHint(); current.loadAll(); } }); }
+        if (!bound) { bound = true; bindTurn({ surface: area, handle: dh, spin: { set: i => { if (current) current.set(i); }, get cur() { return current ? current.cur : 0; }, get count() { return current ? current.count : 24; } }, span: () => area.clientWidth * 0.9, onStart: () => { stopHint(); if (current) current.loadAll(); } }); }
         spin.load(0).then(() => (motionOk ? spin.loadAll() : null)).then(() => { if (motionOk && current === spin) stopHint = hint(spin, 2200); });
       }, 0);
     }));
